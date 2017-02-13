@@ -31,7 +31,6 @@ public class ElasticResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response postIt(String req) {
         
-        System.out.println(req);
         JSONObject json = new JSONObject(req);
         
         JSONObject response = new JSONObject();
@@ -52,7 +51,7 @@ public class ElasticResource {
         result.put("metadata", json.getJSONObject("result").getJSONObject("metadata"));
         
         JSONObject fulfillment = new JSONObject();
-        fulfillment.put("speech", json.getJSONObject("result").getJSONObject("fulfillment").get("speech"));
+        fulfillment.put("speech", "hola");
         JSONArray messages = new JSONArray();
         JSONObject message = new JSONObject();
         message.put("type", 0);
@@ -67,7 +66,7 @@ public class ElasticResource {
         result.put("sessionId", json.get("sessionId"));
         result.put("originalRequest", json.getJSONObject("originalRequest"));
         
-        
+        System.out.println(response.toString());
         return Response.status(200).entity(response.toString()).build();
     }
 }
