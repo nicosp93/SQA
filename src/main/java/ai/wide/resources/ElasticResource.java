@@ -48,7 +48,7 @@ public class ElasticResource {
         result.put("actionIncomplete", json.getJSONObject("result").get("actionIncomplete"));
         result.put("parameters", json.getJSONObject("result").getJSONObject("parameters"));
         
-        result.put("contexts", json.getJSONObject("result").getJSONObject("contexts"));
+        result.put("contexts", json.getJSONObject("result").getJSONArray("contexts"));
         result.put("metadata", json.getJSONObject("result").getJSONObject("metadata"));
         
         JSONObject fulfillment = new JSONObject();
