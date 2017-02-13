@@ -33,8 +33,15 @@ public class ElasticResource {
         
         JSONObject json = new JSONObject(req);
         
+        
+        
         JSONObject response = new JSONObject();
         
+        response.put("speech", "Hola");
+        response.put("displayText", "HolaHola");
+        response.put("source", json.getJSONObject("result").get("source"));
+        
+        /*
         response.put("id", json.get("id"));
         response.put("timestamp", json.get("timestamp"));
         response.put("lang", json.get("lang"));
@@ -65,7 +72,7 @@ public class ElasticResource {
         response.put("status", json.getJSONObject("status"));
         response.put("sessionId", json.get("sessionId"));
         //response.put("originalRequest", json.getJSONObject("originalRequest"));
-        
+        */
         System.out.println(response.toString());
         return Response.status(200).entity(response.toString()).build();
     }
