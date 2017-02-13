@@ -18,6 +18,7 @@ public class ElasticResource {
         String r = HTMLHandler.restCall("POST", "http://api.wide-eyes.it/SearchByAttributes", 
                 "{\"page\":0,\"attributes\":{\"included\":[],\"excluded\":[]},\"filters\":{},\"ranges\":{\"price\":{\"min\":0,\"max\":1000},\"discount\":{\"min\":0,\"max\":100}},\"maxNumResults\":50}", 
                 "application/json", null, "28ecd9090551dbe8ca7614ada843a15d7fc9f751");
+        System.out.println(r);
         return Response.status(200).entity(r).build();
     
     }
