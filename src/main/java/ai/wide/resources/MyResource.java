@@ -22,6 +22,8 @@ public class MyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getIt() {
        
+        
+        
         return Response.status(200).entity("{}").build();
     }
 }

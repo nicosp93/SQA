@@ -1,4 +1,4 @@
-package ai.wide;
+package ai.wide.resources;
 
 import javax.ws.rs.core.Application;
 
