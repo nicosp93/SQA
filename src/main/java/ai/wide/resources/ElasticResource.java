@@ -41,6 +41,40 @@ public class ElasticResource {
         response.put("displayText", "HolaHola");
         response.put("source", json.getJSONObject("result").get("source"));
         
+        
+        JSONObject button = new JSONObject();
+        button.put("type", "web_url");
+        button.put("url", "http://www.google.com");
+        button.put("title", "View Details");
+        JSONArray buttons = new JSONArray();
+        buttons.put(button);
+        
+        JSONObject element = new JSONObject();
+        element.put("title", "titulo");
+        element.put("image_url", "https://s-media-cache-ak0.pinimg.com/564x/52/b0/16/52b01627386f9879fb6aac6cd563f735.jpg");
+        element.put("subtitle", "subtitle");
+        element.put("buttons", buttons);
+        JSONArray elements = new JSONArray();
+        elements.put(element);
+        
+        JSONObject payload = new JSONObject();
+        payload.put("template_type", "generic");
+        payload.put("elements", elements);
+        
+        JSONObject attachment = new JSONObject();
+        attachment.put("type", "template");
+        attachment.put("payload", payload);
+        
+        JSONObject fbMessage = new JSONObject();
+        fbMessage.put("attachment", attachment);
+        
+        JSONObject data = new JSONObject();
+        data.put("facebook", fbMessage);
+        
+        response.put("data", data);
+        
+        
+        
         /*
         response.put("id", json.get("id"));
         response.put("timestamp", json.get("timestamp"));
@@ -78,7 +112,43 @@ public class ElasticResource {
     }
 }
 
-/* {
+/* 
+ * 
+ *     facebook_message = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": channel.get('title'),
+                        "image_url": "http://l.yimg.com/a/i/us/we/52/" + condition.get('code') + ".gif",
+                        "subtitle": speech,
+                        "buttons": [
+                            {
+                                "type": "web_url",
+                                "url": channel.get('link'),
+                                "title": "View Details"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+
+    print(json.dumps(slack_message))
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        "data": {"slack": slack_message, "facebook": facebook_message},
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
+    
+    
+    {
    "id":"6a673dd2-e33f-451b-a856-c14d5f9ca387",
    "timestamp":"2017-02-13T13:41:43.998Z",
    "lang":"en",
