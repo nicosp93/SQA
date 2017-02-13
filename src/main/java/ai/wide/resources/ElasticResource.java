@@ -62,9 +62,9 @@ public class ElasticResource {
         result.put("score", json.getJSONObject("result").get("score"));
         response.put("result", result);
         
-        result.put("status", json.getJSONObject("status"));
-        result.put("sessionId", json.get("sessionId"));
-        result.put("originalRequest", json.getJSONObject("originalRequest"));
+        response.put("status", json.getJSONObject("status"));
+        response.put("sessionId", json.get("sessionId"));
+        response.put("originalRequest", json.getJSONObject("originalRequest"));
         
         System.out.println(response.toString());
         return Response.status(200).entity(response.toString()).build();
