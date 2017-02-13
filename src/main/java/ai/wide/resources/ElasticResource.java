@@ -56,6 +56,7 @@ public class ElasticResource {
         element.put("buttons", buttons);
         JSONArray elements = new JSONArray();
         elements.put(element);
+        elements.put(element);
         
         JSONObject payload = new JSONObject();
         payload.put("template_type", "generic");
