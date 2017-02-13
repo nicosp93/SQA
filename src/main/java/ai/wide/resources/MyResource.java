@@ -1,7 +1,5 @@
-package ai.wide;
+package ai.wide.resources;
 
-import javax.json.Json;
-import javax.json.JsonObject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -23,12 +21,7 @@ public class MyResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getIt() {
-        
-        JsonObject value = Json.createObjectBuilder()
-                .add("firstName", "Jeremy")
-                .add("lastName", "Chung")
-                .add("message", "Hello World!")
-                .build();
-        return Response.status(200).entity(value).build();
+       
+        return Response.status(200).entity("{}").build();
     }
 }
