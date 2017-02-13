@@ -1,6 +1,7 @@
 package ai.wide.resources;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -21,6 +22,14 @@ public class ElasticResource {
         System.out.println(r);
         return Response.status(200).entity(r).build();
     
+    }
+    
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response postIt(String req) {
+        
+        System.out.println(req);
+        return Response.status(200).entity(req).build();
     }
 }
 
