@@ -42,8 +42,8 @@ public class ElasticResource {
         JSONObject result = new JSONObject();
         result.put("source", json.getJSONObject("result").get("source"));
         result.put("resolvedQuery", json.getJSONObject("result").get("resolvedQuery"));
-        result.put("speech", json.getJSONObject("result").get("speech"));
-        result.put("action", json.getJSONObject("result").get("action"));
+        //result.put("speech", json.getJSONObject("result").get("speech"));
+        //result.put("action", json.getJSONObject("result").get("action"));
         result.put("actionIncomplete", json.getJSONObject("result").get("actionIncomplete"));
         result.put("parameters", json.getJSONObject("result").getJSONObject("parameters"));
         
