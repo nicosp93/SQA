@@ -39,17 +39,8 @@ public class ElasticResource {
         
         JSONObject json = new JSONObject(req);
         
-        JSONObject parameters = json.getJSONObject("result").getJSONObject("parameters");
         
-        if (parameters.has("category_type")) {
-            category = parameters.getString("category_type");
-        }
         
-        String r = HTMLHandler.restCall("POST", "http://api.wide-eyes.it/SearchByAttributes", 
-                "{\"page\":0,\"attributes\":{\"included\":[],\"excluded\":[]},\"filters\":{\"category\":[\"" + category + "\"]},\"ranges\":{\"price\":{\"min\":0,\"max\":1000},\"discount\":{\"min\":0,\"max\":100}},\"maxNumResults\":50}", 
-                "application/json", null, "28ecd9090551dbe8ca7614ada843a15d7fc9f751");
-        
-        System.out.println(r);
         
         JSONObject result = new JSONObject();
         result.put("source", json.getJSONObject("result").get("source"));
@@ -74,15 +65,32 @@ public class ElasticResource {
         JSONArray buttons = new JSONArray();
         buttons.put(button);
         
-        JSONObject element = new JSONObject();
-        element.put("title", "titulo");
-        element.put("image_url", "https://s-media-cache-ak0.pinimg.com/564x/52/b0/16/52b01627386f9879fb6aac6cd563f735.jpg");
-        element.put("subtitle", "subtitle");
-        element.put("buttons", buttons);
-        JSONArray elements = new JSONArray();
-        elements.put(element);
-        elements.put(element);
+        JSONObject parameters = json.getJSONObject("result").getJSONObject("parameters");
         
+        if (parameters.has("category_type")) {
+            category = parameters.getString("category_type");
+        }
+        
+        String r = HTMLHandler.restCall("POST", "http://api.wide-eyes.it/SearchByAttributes", 
+                "{\"page\":0,\"attributes\":{\"included\":[],\"excluded\":[]},\"filters\":{\"category\":[\"BAG\"]},\"ranges\":{\"price\":{\"min\":0,\"max\":1000},\"discount\":{\"min\":0,\"max\":100}},\"maxNumResults\":10}", 
+                "application/json", null, "28ecd9090551dbe8ca7614ada843a15d7fc9f751");
+        
+        System.out.println(r);
+        
+        JSONArray elements = new JSONArray();
+        
+        JSONObject resAttr = new JSONObject(r);
+        JSONArray results = resAttr.getJSONArray("results");
+        for (int i =0; i<results.length(); i++) {
+            
+            JSONObject element = new JSONObject();
+            element.put("title", results.getJSONObject(i).get("brand"));
+            element.put("image_url", "https://s-media-cache-ak0.pinimg.com/564x/52/b0/16/52b01627386f9879fb6aac6cd563f735.jpg");
+            element.put("subtitle", "subtitle");
+            element.put("buttons", buttons);
+            elements.put(element);
+                
+        }
         JSONObject payload = new JSONObject();
         payload.put("template_type", "generic");
         payload.put("elements", elements);
