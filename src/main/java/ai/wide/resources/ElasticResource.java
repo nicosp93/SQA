@@ -58,12 +58,7 @@ public class ElasticResource {
         response.put("source", json.getJSONObject("result").get("source"));
         
         
-        JSONObject button = new JSONObject();
-        button.put("type", "web_url");
-        button.put("url", "http://www.google.com");
-        button.put("title", "View Details");
-        JSONArray buttons = new JSONArray();
-        buttons.put(button);
+        
         
         JSONObject parameters = json.getJSONObject("result").getJSONObject("parameters");
         
@@ -83,9 +78,16 @@ public class ElasticResource {
         JSONArray results = resAttr.getJSONArray("results");
         for (int i =0; i<results.length(); i++) {
             
+            JSONObject button = new JSONObject();
+            button.put("type", "web_url");
+            button.put("url", results.getJSONObject(i).get("url"));
+            button.put("title", "View Details");
+            JSONArray buttons = new JSONArray();
+            buttons.put(button);
+            
             JSONObject element = new JSONObject();
             element.put("title", results.getJSONObject(i).get("brand"));
-            element.put("image_url", "https://s-media-cache-ak0.pinimg.com/564x/52/b0/16/52b01627386f9879fb6aac6cd563f735.jpg");
+            element.put("image_url", results.getJSONObject(i).get("url"));
             element.put("subtitle", "subtitle");
             element.put("buttons", buttons);
             elements.put(element);
