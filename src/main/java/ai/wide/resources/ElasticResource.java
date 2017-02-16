@@ -30,15 +30,33 @@ public class ElasticResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response postIt(String req) {
+        return Response.status(200).entity(fbResponse(req).toString()).build();
+    }
+
+    private JSONObject fbResponse(String req) {
+        String category = "";
         
         JSONObject json = new JSONObject(req);
         
+        JSONObject parameters = json.getJSONObject("result").getJSONObject("parameters");
+        
+        if (parameters.has("category_type")) {
+            category = parameters.getString("category_type");
+        }
+        
+        JSONObject result = new JSONObject();
+        result.put("source", json.getJSONObject("result").get("source"));
+        result.put("resolvedQuery", json.getJSONObject("result").get("resolvedQuery"));
+        //result.put("speech", json.getJSONObject("result").get("speech"));
+        //result.put("action", json.getJSONObject("result").get("action"));
+        result.put("actionIncomplete", json.getJSONObject("result").get("actionIncomplete"));
+        result.put("parameters", json.getJSONObject("result").getJSONObject("parameters"));
         
         
         JSONObject response = new JSONObject();
         
-        response.put("speech", "Hola");
-        response.put("displayText", "HolaHola");
+        response.put("speech", "Hola" + category);
+        response.put("displayText", "HolaHola" + category);
         response.put("source", json.getJSONObject("result").get("source"));
         
         
@@ -71,47 +89,13 @@ public class ElasticResource {
         
         JSONObject data = new JSONObject();
         data.put("facebook", fbMessage);
-        
         response.put("data", data);
         
-        
-        
-        /*
-        response.put("id", json.get("id"));
-        response.put("timestamp", json.get("timestamp"));
-        response.put("lang", json.get("lang"));
-        
-        JSONObject result = new JSONObject();
-        result.put("source", json.getJSONObject("result").get("source"));
-        result.put("resolvedQuery", json.getJSONObject("result").get("resolvedQuery"));
-        //result.put("speech", json.getJSONObject("result").get("speech"));
-        //result.put("action", json.getJSONObject("result").get("action"));
-        result.put("actionIncomplete", json.getJSONObject("result").get("actionIncomplete"));
-        result.put("parameters", json.getJSONObject("result").getJSONObject("parameters"));
-        
-        result.put("contexts", json.getJSONObject("result").getJSONArray("contexts"));
-        result.put("metadata", json.getJSONObject("result").getJSONObject("metadata"));
-        
-        JSONObject fulfillment = new JSONObject();
-        fulfillment.put("speech", "hola");
-        JSONArray messages = new JSONArray();
-        JSONObject message = new JSONObject();
-        message.put("type", 0);
-        message.put("speech", "Hola soy Fashbot");
-        messages.put(message);
-        fulfillment.put("messages", messages);
-        result.put("fulfillment", fulfillment);
-        result.put("score", json.getJSONObject("result").get("score"));
-        response.put("result", result);
-        
-        response.put("status", json.getJSONObject("status"));
-        response.put("sessionId", json.get("sessionId"));
-        //response.put("originalRequest", json.getJSONObject("originalRequest"));
-        */
-        System.out.println(response.toString());
-        return Response.status(200).entity(response.toString()).build();
+        return response;
     }
 }
+
+
 
 /* 
  * 
