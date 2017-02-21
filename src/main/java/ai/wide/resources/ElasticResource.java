@@ -71,6 +71,13 @@ public class ElasticResource {
             //{"attribute":"boot height:knee high","options":{"min":0.75}}
         }
         
+        if (parameters.has("color_fallback")) {
+            included.put(new JSONObject("{\"attribute\":\"color fallback:" 
+                    + parameters.getString("color_fallback") + "\",\"options\":{\"min\":0.75}}"));
+            //{"attribute":"boot height:knee high","options":{"min":0.75}}
+        }
+        
+        
         String r = HTMLHandler.restCall("POST", "http://api.wide-eyes.it/SearchByAttributes", 
                 "{\"page\":0,\"attributes\":{\"included\":" + included.toString() + ",\"excluded\":[]},\"filters\":{},\"ranges\":{\"price\":{\"min\":0,\"max\":1000},\"discount\":{\"min\":0,\"max\":100}},\"maxNumResults\":10}", 
                 "application/json", null, "28ecd9090551dbe8ca7614ada843a15d7fc9f751");
