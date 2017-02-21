@@ -99,6 +99,15 @@ public class ElasticResource {
         }
         
         
+        if (parameters.has("sleeve_length")) {
+            if (parameters.getString("sleeve_length").length()>0) { 
+                included.put(new JSONObject("{\"attribute\":\"sleeve length:" 
+                        + parameters.getString("sleeve_length") + "\",\"options\":{\"min\":0.75}}"));
+                //{"attribute":"boot height:knee high","options":{"min":0.75}}
+            }
+        }
+        
+        
         
         String r = HTMLHandler.restCall("POST", "http://api.wide-eyes.it/SearchByAttributes", 
                 "{\"page\":0,\"attributes\":{\"included\":" + included.toString() + ",\"excluded\":[]},\"filters\":{},\"ranges\":{\"price\":{\"min\":0,\"max\":1000},\"discount\":{\"min\":0,\"max\":100}},\"maxNumResults\":10}", 
