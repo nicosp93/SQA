@@ -107,6 +107,15 @@ public class ElasticResource {
             }
         }
         
+        if (parameters.has("pattern_type")) {
+            if (parameters.getString("pattern_type").length()>0) { 
+                included.put(new JSONObject("{\"attribute\":\"pattern type:" 
+                        + parameters.getString("pattern_type") + "\",\"options\":{\"min\":0.75}}"));
+                //{"attribute":"boot height:knee high","options":{"min":0.75}}
+            }
+        }
+        
+        
         
         
         String r = HTMLHandler.restCall("POST", "http://api.wide-eyes.it/SearchByAttributes", 
