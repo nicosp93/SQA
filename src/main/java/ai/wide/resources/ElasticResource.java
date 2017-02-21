@@ -62,14 +62,19 @@ public class ElasticResource {
         
         JSONObject parameters = json.getJSONObject("result").getJSONObject("parameters");
         
+        
+        JSONArray included = new JSONArray();
+        
         if (parameters.has("category_type")) {
-            category = parameters.getString("category_type");
+            included.put(new JSONObject("{\"attribute\":\"cayegory:" 
+                    + parameters.getString("category_type") + "\",\"options\":{\"min\":0.75}}"));
+            //{"attribute":"boot height:knee high","options":{"min":0.75}}
         }
         
         String r = HTMLHandler.restCall("POST", "http://api.wide-eyes.it/SearchByAttributes", 
-                "{\"page\":0,\"attributes\":{\"included\":[],\"excluded\":[]},\"filters\":{\"category\":[\"BAG\"]},\"ranges\":{\"price\":{\"min\":0,\"max\":1000},\"discount\":{\"min\":0,\"max\":100}},\"maxNumResults\":10}", 
+                "{\"page\":0,\"attributes\":{\"included\":" + included.toString() + ",\"excluded\":[]},\"filters\":{},\"ranges\":{\"price\":{\"min\":0,\"max\":1000},\"discount\":{\"min\":0,\"max\":100}},\"maxNumResults\":10}", 
                 "application/json", null, "28ecd9090551dbe8ca7614ada843a15d7fc9f751");
-        
+        //\"category\":[\"" + + ""\"]
         System.out.println(r);
         
         JSONArray elements = new JSONArray();
