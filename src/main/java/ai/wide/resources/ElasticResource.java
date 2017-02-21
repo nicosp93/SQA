@@ -70,6 +70,59 @@ public class ElasticResource {
                 included.put(new JSONObject("{\"attribute\":\"category type:" 
                         + parameters.getString("category_type") + "\",\"options\":{\"min\":0.75}}"));
                 //{"attribute":"boot height:knee high","options":{"min":0.75}}
+                
+                
+                if (parameters.has("silhouette")) {
+                    if (parameters.getString("silhouette").length()>0) { 
+                        
+                        if (parameters.getString("category_type").equals("jeans")
+                                || parameters.getString("category_type").equals("pants/leggings")
+                                || parameters.getString("category_type").equals("joggers")) { 
+                            
+                            included.put(new JSONObject("{\"attribute\":\"pants silhouette:" 
+                                    + parameters.getString("silhouette") + "\",\"options\":{\"min\":0.75}}"));
+                            
+                            
+                        } else if (parameters.getString("category_type").equals("skirt")
+                                || parameters.getString("category_type").equals("dress")) {
+                            
+                            included.put(new JSONObject("{\"attribute\":\"dress/skirt silhouette:" 
+                                    + parameters.getString("silhouette") + "\",\"options\":{\"min\":0.75}}"));
+                        
+                        } else if (parameters.getString("category_type").equals("polo")
+                                || parameters.getString("category_type").equals("shirt")
+                                || parameters.getString("category_type").equals("tops")
+                                || parameters.getString("category_type").equals("sweater")
+                                || parameters.getString("category_type").equals("cardigan")
+                                || parameters.getString("category_type").equals("sweatshirt/hoodie")
+                                || parameters.getString("category_type").equals("blazer")
+                                || parameters.getString("category_type").equals("jacket")
+                                || parameters.getString("category_type").equals("vest")) {
+                            included.put(new JSONObject("{\"attribute\":\"tops silhouette:" 
+                                    + parameters.getString("silhouette") + "\",\"options\":{\"min\":0.75}}"));
+                        }
+                                    
+        /*
+         * "dress/skirt silhouette": {"flared": 0,
+           "straight": 1,
+           "loose": 2,
+           "tight": 3,
+           "textured": 4,
+           "does not apply": 5
+          },
+         "tops silhouette": {"regular": 0,
+            "crop top": 1,
+            "tight": 2,
+            "loose/relaxed": 3,
+           },
+            "pants silhouette": {"straight": 0,
+             "skinny": 1,
+             "flared": 2,
+             "wide-leg": 3,
+            },
+         */
+          
+                
             }
         }
         
@@ -112,6 +165,12 @@ public class ElasticResource {
                 included.put(new JSONObject("{\"attribute\":\"pattern type:" 
                         + parameters.getString("pattern_type") + "\",\"options\":{\"min\":0.75}}"));
                 //{"attribute":"boot height:knee high","options":{"min":0.75}}
+            }
+        }
+        
+        
+                      
+                
             }
         }
         
