@@ -66,7 +66,7 @@ public class ElasticResource {
         JSONArray included = new JSONArray();
         
         if (parameters.has("category_type")) {
-            included.put(new JSONObject("{\"attribute\":\"cayegory:" 
+            included.put(new JSONObject("{\"attribute\":\"category type:" 
                     + parameters.getString("category_type") + "\",\"options\":{\"min\":0.75}}"));
             //{"attribute":"boot height:knee high","options":{"min":0.75}}
         }
